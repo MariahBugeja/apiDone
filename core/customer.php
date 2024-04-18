@@ -4,9 +4,9 @@ class Customer {
     private $conn;
     private $table = 'Customer';
     public $id;
-    public $firstName;
-    public $lastName;
-    public $email;
+    public $FirstName;
+    public $LastName;
+    public $Email;
     public $phone;
     public $password;
 
@@ -38,7 +38,7 @@ class Customer {
     }
 
     public function create() {
-        $query = 'INSERT INTO ' . $this->table . ' (FirstName, LastName, Email, phone, password) VALUES(:firstName, :lastName, :email, :phone, :password)';
+        $query = 'INSERT INTO ' . $this->table . ' (FirstName, LastName, Email, phone, password) VALUES(:FirstName, :LastName, :Email, :phone, :password)';
         $stmt = $this->conn->prepare($query);
         
         $this->FirstName = htmlspecialchars(strip_tags($this->FirstName));
@@ -103,7 +103,7 @@ class Customer {
     }
 
     public function delete() {
-        $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+        $query = 'DELETE FROM ' . $this->table . ' WHERE customerId = :id';
         $stmt = $this->conn->prepare($query);
 
         $this->id = htmlspecialchars(strip_tags($this->id));
