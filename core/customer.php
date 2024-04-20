@@ -61,7 +61,7 @@ class Customer {
     }
 
     public function update() {
-        $query = 'UPDATE ' . $this->table . ' SET FirstName = :FirstName, LastName = :LastName, Email = :Email, phone = :phone, password = :password WHERE id = :id';
+        $query = 'UPDATE ' . $this->table . ' SET FirstName = :FirstName, LastName = :LastName, Email = :Email, phone = :phone, password = :password WHERE customerId = :id';
         $stmt = $this->conn->prepare($query);
 
         $this->id = htmlspecialchars(strip_tags($this->id));

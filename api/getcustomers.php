@@ -23,10 +23,10 @@ if($num > 0){
 while($row = $result->fetch(PDO::FETCH_ASSOC)){
     extract($row);
     $user_item = array(
-        'customerId'  => $Customer->id,
+        'customerId'  =>$Customer->id,
         'FirstName'  => $Customer->FirstName,
         'LastName'  => $Customer->LastName,
-        'email'     => $Customer->Email,
+        'Email'     => $Customer->Email,
         'phone'     => $Customer->phone,
         'password'  => $Customer->password
     );
