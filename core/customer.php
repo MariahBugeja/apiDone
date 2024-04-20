@@ -85,21 +85,19 @@ class Customer {
         return false;
     }
 
-    public function updatePassword() {
-        $query = 'UPDATE ' . $this->table . ' SET password = :password WHERE id = :id';
+
+    public function changePassword($newPassword) {
+        // Hash the new password before updating
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    
+        // Update the password in the database
+        $query = 'UPDATE ' . $this->table . ' SET password = :password WHERE customerId = :id';
         $stmt = $this->conn->prepare($query);
-
+    
         $this->id = htmlspecialchars(strip_tags($this->id));
-        $this->password = htmlspecialchars(strip_tags($this->password));
-
+    
         $stmt->bindParam(':id', $this->id);
-        $stmt->bindParam(':password', $this->password);
-
-        if ($stmt->execute()) {
-            return true;
-        }
-        printf('ERROR %s. \n', $stmt->error);
-        return false;
+        $stmt->bindParam(':password', $hashedPassword);
     }
 
     public function delete() {
