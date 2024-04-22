@@ -2,8 +2,8 @@
 
 class Customer {
     private $conn;
-    private $table = 'Customer';
-    public $id;
+    private $table = 'customer';
+    public $customerId;
     public $FirstName;
     public $LastName;
     public $Email;
@@ -24,17 +24,23 @@ class Customer {
     public function read_single() {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE customerId = ? LIMIT 1';
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(1, $this->customerId);
         $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $this->FirstName = $row['FirstName'];
-        $this->LastName = $row['LastName'];
-        $this->Email = $row['Email'];
-        $this->phone = $row['phone'];
-        $this->password = $row['password'];
+        // Check if any rows were returned
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $stmt;
+            $this->FirstName = $row['FirstName'];
+            $this->LastName = $row['LastName'];
+            $this->Email = $row['Email'];
+            $this->phone = $row['phone'];
+            $this->password = $row['password'];
+
+            return true;
+        } else {
+            return false; // No rows found
+        }
     }
 
     public function create() {
@@ -61,17 +67,17 @@ class Customer {
     }
 
     public function update() {
-        $query = 'UPDATE ' . $this->table . ' SET FirstName = :FirstName, LastName = :LastName, Email = :Email, phone = :phone, password = :password WHERE customerId = :id';
+        $query = 'UPDATE ' . $this->table . ' SET FirstName = :FirstName, LastName = :LastName, Email = :Email, phone = :phone, password = :password WHERE customerId = :customerId';
         $stmt = $this->conn->prepare($query);
 
-        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->customerId = htmlspecialchars(strip_tags($this->customerId));
         $this->FirstName = htmlspecialchars(strip_tags($this->FirstName));
         $this->LastName = htmlspecialchars(strip_tags($this->LastName));
         $this->Email = htmlspecialchars(strip_tags($this->Email));
         $this->phone = htmlspecialchars(strip_tags($this->phone));
         $this->password = htmlspecialchars(strip_tags($this->password));
 
-        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':customerId', $this->customerId);
         $stmt->bindParam(':FirstName', $this->FirstName);
         $stmt->bindParam(':LastName', $this->LastName);
         $stmt->bindParam(':Email', $this->Email);
@@ -89,23 +95,32 @@ class Customer {
     public function changePassword($newPassword) {
         // Hash the new password before updating
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-    
+        
         // Update the password in the database
-        $query = 'UPDATE ' . $this->table . ' SET password = :password WHERE customerId = :id';
+        $query = 'UPDATE ' . $this->table . ' SET password = :password WHERE customerId = :customerId';
         $stmt = $this->conn->prepare($query);
-    
-        $this->id = htmlspecialchars(strip_tags($this->id));
-    
-        $stmt->bindParam(':id', $this->id);
+        
+        $this->customerId = htmlspecialchars(strip_tags($this->customerId));
+        
+        $stmt->bindParam(':customerId', $this->customerId);
         $stmt->bindParam(':password', $hashedPassword);
+        
+        // Execute the query
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            // Print any errors
+            printf("Error: %s.\n", $stmt->error);
+            return false;
+        }
     }
 
     public function delete() {
-        $query = 'DELETE FROM ' . $this->table . ' WHERE customerId = :id';
+        $query = 'DELETE FROM ' . $this->table . ' WHERE customerId = :customerId';
         $stmt = $this->conn->prepare($query);
 
-        $this->id = htmlspecialchars(strip_tags($this->id));
-        $stmt->bindParam(':id', $this->id);
+        $this->customerId = htmlspecialchars(strip_tags($this->customerId));
+        $stmt->bindParam(':customerId', $this->customerId);
         
         if ($stmt->execute()) {
             return true;

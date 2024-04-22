@@ -16,14 +16,18 @@ $customer = new Customer($db);
 // get data from request body
 $data = json_decode(file_get_contents('php://input'));
 
+// Output received data for inspection
+echo json_encode($data);
+exit;
+
 // check if required fields are provided
-if (!isset($data->id) || !isset($data->oldPassword) || !isset($data->newPassword)) {
+if (!isset($data->CustomerId) || !isset($data->oldPassword) || !isset($data->newPassword)) {
     echo json_encode(array('message' => 'Incomplete data provided.'));
     exit;
 }
 
 // set properties for change password
-$customer->id = $data->id;
+$customer->CustomerId = $data->CustomerId;
 $oldPassword = $data->oldPassword; // old password
 $newPassword = $data->newPassword; // new password
 
@@ -44,6 +48,11 @@ if ($customer->read_single()) {
 } else {
     // User not found
     echo json_encode(array('message' => 'User not found.'));
+}
+
+// Error handling
+if ($error = $db->errorInfo()) {
+    echo json_encode(array('error' => $error));
 }
 
 ?>

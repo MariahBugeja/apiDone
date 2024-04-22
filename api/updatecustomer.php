@@ -1,33 +1,28 @@
 <?php
-
-// set endpoint headers
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 header('Access-Control-Allow-Methods: PUT');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
-// initialize API
-include_once('../core/initialize.php');
+include_once('../core/initialize.php'); 
 
-// create instance of Customer
+// Instantiate Customer object
 $customer = new Customer($db);
+$data = json_decode(file_get_contents("php://input"));
 
+// Set properties of the customer object
+$customer->customerId = $data->customerId;
+$customer->FirstName = $data->FirstName;
+$customer->LastName = $data->LastName;
+$customer->Email = $data->Email;
+$customer->phone = $data->phone;
+$customer->password = $data->password;
 
-// get data from request body
-$data = json_decode(file_get_contents('php://input'));
-
-// set properties for update
-$customer->id = isset($data->id) ? $data->id : null;
-$customer->FirstName = isset($data->FirstName) ? $data->FirstName : null;
-$customer->LastName = isset($data->LastName) ? $data->LastName : null;
-$customer->Email = isset($data->Email) ? $data->Email : null;
-$customer->phone = isset($data->phone) ? $data->phone : null;
-$customer->password = isset($data->password) ? $data->password : null;
-
-// attempt to update customer
-if ($customer->update()) {
-    echo json_encode(array('message' => 'Customer updated.'));
+// Update the customer
+if($customer->update()){
+    echo json_encode(array('message'=>'User updated.'));
 } else {
-    echo json_encode(array('message' => 'Customer not updated.'));
+    echo json_encode(array('message'=>'User NOT updated.'));
 }
+?>
