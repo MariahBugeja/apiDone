@@ -5,25 +5,31 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: PUT');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
-include_once('../core/initialize.php'); 
+include_once('../core/initialize.php');
 
-// Instantiate Customer object
+// Instantiate Recipe object
 $recipe = new Recipe($db);
 $data = json_decode(file_get_contents("php://input"));
 
 // Set properties of the recipe object
 $recipe->recipeId = $data->recipeId;
-$recipe->recipeName = $data->recipeName;
+$recipe->RecipeName = $data->recipeName;
 $recipe->prepInstructions = $data->prepInstructions;
-$recipe->staffId = $data->staffId;
 $recipe->timePreparation = $data->timePreparation;
 $recipe->timeCooking = $data->timeCooking;
-$recipe->mealId = $data->mealId; 
+$recipe->mealId = $data->mealId;
 
-// Update the customer
-if($recipe->update()){
-    echo json_encode(array('message'=>'recipe updated.'));
+// Check if StaffId is provided and not empty
+if (isset($data->staffId) && !empty($data->staffId)) {
+    $recipe->StaffId = $data->staffId;
 } else {
-    echo json_encode(array('message'=>'recipe NOT updated.'));
+    $recipe->StaffId = null; 
+}
+
+// Update the recipe
+if ($recipe->update()) {
+    echo json_encode(array('message' => 'Recipe updated.'));
+} else {
+    echo json_encode(array('message' => 'Recipe NOT updated.'));
 }
 ?>
