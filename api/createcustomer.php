@@ -11,7 +11,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 include_once('../core/initialize.php');
 
 //create instance of user
-$user = new Customer($db);
+$customer = new Customer($db);
 
 $data = json_decode(file_get_contents('php://input'));
 $customer = new Customer($db);
