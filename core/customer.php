@@ -128,5 +128,8 @@ class Customer {
         printf('ERROR %s. \n', $stmt->error);
         return false;
     }
+    public function fooddetails(){
+        
+    }
 }
 ?>

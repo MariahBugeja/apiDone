@@ -3,34 +3,39 @@
 class Recipe {
     private $conn;
     private $table = 'recipes';
-    public $recipe_id;
-    public $recipe_name;
-    public $preparation_instructions;
-    public $chef_id;
-
+    public $recipeId;
+    public $recipeName;
+    public $staffId;
+    public $timePreparation;
+    public $timeCooking;
+    public $prepInstructions;
+    public $mealId; 
     public function __construct($db) {
         $this->conn = $db;
     }
 
     public function read() {
-        $query = 'SELECT * FROM ' . $this->table . ' ORDER BY recipe_id ASC';
+        $query = 'SELECT * FROM ' . $this->table . ' ORDER BY recipeId ASC';
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 
     public function read_single() {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE recipe_id = ? LIMIT 1';
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE recipeId = ? LIMIT 1';
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->recipe_id);
+        $stmt->bindParam(1, $this->recipeId);
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $this->recipe_name = $row['recipe_name'];
-            $this->preparation_instructions = $row['preparation_instructions'];
-            $this->chef_id = $row['chef_id'];
+            $this->recipeName = $row['recipeName'];
+            $this->prepInstructions = $row['prepInstructions'];
+            $this->staffId = $row['staffId'];
+            $this->timePreparation = $row['timePreparation'];
+            $this->timeCooking = $row['timeCooking'];
+            $this->mealId = $row['mealId']; 
 
             return true;
         } else {
@@ -39,17 +44,25 @@ class Recipe {
     }
 
     public function create() {
-        $query = 'INSERT INTO ' . $this->table . ' (recipe_name, preparation_instructions, chef_id) VALUES(:recipe_name, :preparation_instructions, :chef_id)';
+        $query = 'INSERT INTO ' . $this->table . ' (recipeName, prepInstructions, staffId, timePreparation, timeCooking, mealId) VALUES(:recipeName, :prepInstructions, :staffId, :timePreparation, :timeCooking, :mealId)';
         $stmt = $this->conn->prepare($query);
         
-        $this->recipe_name = htmlspecialchars(strip_tags($this->recipe_name));
-        $this->preparation_instructions = htmlspecialchars(strip_tags($this->preparation_instructions));
-        $this->chef_id = htmlspecialchars(strip_tags($this->chef_id));
+        // Clean and bind parameters
+        $this->recipeName = htmlspecialchars(strip_tags($this->recipeName));
+        $this->prepInstructions = htmlspecialchars(strip_tags($this->prepInstructions));
+        $this->staffId = htmlspecialchars(strip_tags($this->staffId));
+        $this->timePreparation = htmlspecialchars(strip_tags($this->timePreparation));
+        $this->timeCooking = htmlspecialchars(strip_tags($this->timeCooking));
+        $this->mealId = htmlspecialchars(strip_tags($this->mealId)); 
+        // Bind parameters
+        $stmt->bindParam(':recipeName', $this->recipeName);
+        $stmt->bindParam(':prepInstructions', $this->prepInstructions);
+        $stmt->bindParam(':staffId', $this->staffId);
+        $stmt->bindParam(':timePreparation', $this->timePreparation);
+        $stmt->bindParam(':timeCooking', $this->timeCooking);
+        $stmt->bindParam(':mealId', $this->mealId); 
 
-        $stmt->bindParam(':recipe_name', $this->recipe_name);
-        $stmt->bindParam(':preparation_instructions', $this->preparation_instructions);
-        $stmt->bindParam(':chef_id', $this->chef_id);
-
+        // Execute query
         if ($stmt->execute()) {
             return true;
         }
@@ -58,19 +71,28 @@ class Recipe {
     }
 
     public function update() {
-        $query = 'UPDATE ' . $this->table . ' SET recipe_name = :recipe_name, preparation_instructions = :preparation_instructions, chef_id = :chef_id WHERE recipe_id = :recipe_id';
+        $query = 'UPDATE ' . $this->table . ' SET recipeName = :recipeName, prepInstructions = :prepInstructions, staffId = :staffId, timePreparation = :timePreparation, timeCooking = :timeCooking, mealId = :mealId WHERE recipeId = :recipeId';
         $stmt = $this->conn->prepare($query);
 
-        $this->recipe_id = htmlspecialchars(strip_tags($this->recipe_id));
-        $this->recipe_name = htmlspecialchars(strip_tags($this->recipe_name));
-        $this->preparation_instructions = htmlspecialchars(strip_tags($this->preparation_instructions));
-        $this->chef_id = htmlspecialchars(strip_tags($this->chef_id));
+        // Clean and bind parameters
+        $this->recipeId = htmlspecialchars(strip_tags($this->recipeId));
+        $this->recipeName = htmlspecialchars(strip_tags($this->recipeName));
+        $this->prepInstructions = htmlspecialchars(strip_tags($this->prepInstructions));
+        $this->staffId = htmlspecialchars(strip_tags($this->staffId));
+        $this->timePreparation = htmlspecialchars(strip_tags($this->timePreparation));
+        $this->timeCooking = htmlspecialchars(strip_tags($this->timeCooking));
+        $this->mealId = htmlspecialchars(strip_tags($this->mealId)); 
 
-        $stmt->bindParam(':recipe_id', $this->recipe_id);
-        $stmt->bindParam(':recipe_name', $this->recipe_name);
-        $stmt->bindParam(':preparation_instructions', $this->preparation_instructions);
-        $stmt->bindParam(':chef_id', $this->chef_id);
+        // Bind parameters
+        $stmt->bindParam(':recipeId', $this->recipeId);
+        $stmt->bindParam(':recipeName', $this->recipeName);
+        $stmt->bindParam(':prepInstructions', $this->prepInstructions);
+        $stmt->bindParam(':staffId', $this->staffId);
+        $stmt->bindParam(':timePreparation', $this->timePreparation);
+        $stmt->bindParam(':timeCooking', $this->timeCooking);
+        $stmt->bindParam(':mealId', $this->mealId); 
 
+        // Execute query
         if ($stmt->execute()) {
             return true;
         }
@@ -79,17 +101,20 @@ class Recipe {
     }
 
     public function delete() {
-        $query = 'DELETE FROM ' . $this->table . ' WHERE recipe_id = :recipe_id';
+        $query = 'DELETE FROM ' . $this->table . ' WHERE recipeId = :recipeId';
         $stmt = $this->conn->prepare($query);
 
-        $this->recipe_id = htmlspecialchars(strip_tags($this->recipe_id));
-        $stmt->bindParam(':recipe_id', $this->recipe_id);
+        $this->recipeId = htmlspecialchars(strip_tags($this->recipeId));
+        $stmt->bindParam(':recipeId', $this->recipeId);
         
         if ($stmt->execute()) {
             return true;
         }
         printf('ERROR %s. \n', $stmt->error);
         return false;
+
+
+        
     }
 }
 
