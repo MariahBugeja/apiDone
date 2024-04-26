@@ -2,7 +2,7 @@
 
 class StaffShift {
     private $conn;
-    private $table = 'staff_shifts';
+    private $table = 'staffshift';
     public $staffShiftId;
     public $staffId;
     public $start;
