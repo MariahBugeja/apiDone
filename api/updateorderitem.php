@@ -6,7 +6,6 @@ $orderItem = new OrderItem($db);
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $data = json_decode(file_get_contents("php://input"));
 
-    // Set properties of the order item object
     $orderItem->orderItemId = $data->orderItemId;
     $orderItem->orderId = $data->orderId;
     $orderItem->mealId = $data->mealId;

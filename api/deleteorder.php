@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             echo json_encode(array('message' => 'Failed to delete order'));
         }
     } else {
-]        echo json_encode(array('message' => 'Order ID not provided'));
+            echo json_encode(array('message' => 'Order ID not provided'));
     }
 }
 ?>
