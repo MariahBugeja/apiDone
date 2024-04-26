@@ -7,7 +7,6 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 
 include_once('../core/initialize.php');
 
-// Instantiate Drink object
 $drink = new Drink($db);
 $data = json_decode(file_get_contents("php://input"));
 
@@ -18,12 +17,16 @@ $drink->Price = $data->Price;
 
 // Update the drink
 $result = $drink->update();
-if ($result === true) {
-    echo json_encode(array('message' => 'Drink updated.'));
-} elseif ($result === false) {
-    echo json_encode(array('message' => 'Drink NOT updated.'));
+if (is_string($result)) {
+    // If $result is a string, it contains a JSON-encoded message
+    echo $result;
 } else {
-    echo $result; 
+    // If $result is not a string, it's a boolean value indicating success or failure
+    if ($result === true) {
+        echo json_encode(array('message' => 'Drink updated.'));
+    } else {
+        echo json_encode(array('message' => 'Drink NOT updated.'));
+    }
 }
 
 ?>

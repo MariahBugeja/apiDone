@@ -40,24 +40,27 @@ class Meal {
     }
 
     public function create() {
-        $query = 'INSERT INTO ' . $this->table . ' (MealName, description, Price) VALUES(:MealName, :description, :Price)';
+        $query = 'INSERT INTO ' . $this->table . ' (tableId, orderDateTime, status) VALUES (:tableId, :orderDateTime, :status)';
         $stmt = $this->conn->prepare($query);
-        
-        $this->MealName = htmlspecialchars(strip_tags($this->MealName)); 
-        $this->description = htmlspecialchars(strip_tags($this->description));
-        $this->Price = htmlspecialchars(strip_tags($this->Price)); 
     
-        $stmt->bindParam(':MealName', $this->MealName); 
-        $stmt->bindParam(':description', $this->description);
-        $stmt->bindParam(':Price', $this->Price); 
-
+        // Clean data
+        $this->tableId = htmlspecialchars(strip_tags($this->tableId));
+        $this->orderDateTime = htmlspecialchars(strip_tags($this->orderDateTime));
+        $this->status = htmlspecialchars(strip_tags($this->status));
+    
+        // Bind parameters
+        $stmt->bindParam(':tableId', $this->tableId);
+        $stmt->bindParam(':orderDateTime', $this->orderDateTime);
+        $stmt->bindParam(':status', $this->status);
+    
+        // Execute query
         if ($stmt->execute()) {
             return true;
         }
-        printf('Error %s. \n', $stmt->error);
+        printf('Error: %s.\n', $stmt->error);
         return false;
     }
-
+    
     public function update() {
         $query = 'UPDATE ' . $this->table . ' SET MealName = :MealName, description = :description, Price = :Price WHERE mealId = :mealId';
         $stmt = $this->conn->prepare($query);
