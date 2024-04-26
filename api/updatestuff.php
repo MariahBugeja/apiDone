@@ -8,7 +8,7 @@ header('Access-Control-Allow-Methods: PUT');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 include_once('../core/initialize.php'); 
-include_once('../core/Staff.php'); // Include the Staff class file
+include_once('../core/Staff.php'); 
 
 // Instantiate Staff object
 $staff = new Staff($db);

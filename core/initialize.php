@@ -8,4 +8,8 @@ require_once(INC_PATH.DS.'config.php');
 require_once(CORE_PATH.DS.'Customer.php');
 require_once(CORE_PATH.DS.'recipes.php');
 require_once(CORE_PATH.DS.'food.php');
+require_once(CORE_PATH.DS.'staffshift.php');
+require_once(CORE_PATH.DS.'Shift.php');
+
+
 
