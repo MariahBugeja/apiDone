@@ -12,6 +12,7 @@ require_once(CORE_PATH.DS.'Staff.php');
 require_once(CORE_PATH.DS.'meal.php');
 require_once(CORE_PATH.DS.'drink.php');
 require_once(CORE_PATH.DS.'order.php');
+require_once(CORE_PATH.DS.'preorder.php');
 
 
 
