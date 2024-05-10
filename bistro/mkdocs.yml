@@ -1,1 +1,10 @@
-site_name: My Docs
+site_name: Bistro API Documentation
+nav:
+  - Home: index.md
+  - Overview: api_overview.md
+  - Endpoints:
+    - GET /endpoint1: endpoint1.md
+    - POST /endpoint2: endpoint2.md
+    - DELETE /endpoint3: endpoint3.md
+theme: readthedocs
+repo_url: "https://github.com/MariahBugeja/apiDone.git"
