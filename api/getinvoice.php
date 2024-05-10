@@ -11,8 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode(array(
                 'invoiceId' => $invoice->invoiceId,
                 'orderId' => $invoice->orderId,
-                'totalAmount' => $invoice->totalAmount,
-                'paymentStatus' => $invoice->paymentStatus
+                'totalAmount' => $invoice->Totalammount, 
+                'paymentStatus' => $invoice->PaymentStatus 
             ));
         } else {
             echo json_encode(array('message' => 'Invoice not found'));

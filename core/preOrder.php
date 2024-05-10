@@ -9,97 +9,88 @@ class PreOrder {
     public $status;
     public $date;
     public $mealId;
+    public $TypeOfMeal;
 
     public function __construct($db) {
         $this->conn = $db;
     }
 
     public function create() {
-        $query = 'INSERT INTO ' . $this->table . ' (CustomerId, time, status, date, mealId) VALUES (:customerId, :time, :status, :date, :mealId)';
+        // Check if required data exists
+        if (!$this->customerExists($this->customerId) || !$this->mealExists($this->mealId)) {
+            return false; 
+        }
+        
+        // Prepare query for insertion
+        $query = 'INSERT INTO `' . $this->table . '` (customerId, time, status, date, mealId, TypeOfMeal) VALUES (:customerId, :time, :status, :date, :mealId, :TypeOfMeal)';
         $stmt = $this->conn->prepare($query);
-    
-        $this->customerId = htmlspecialchars(strip_tags($this->customerId));
-        $this->time = htmlspecialchars(strip_tags($this->time));
-        $this->status = htmlspecialchars(strip_tags($this->status));
-        $this->date = htmlspecialchars(strip_tags($this->date));
-        $this->mealId = htmlspecialchars(strip_tags($this->mealId));
-    
+        
         $stmt->bindParam(':customerId', $this->customerId);
         $stmt->bindParam(':time', $this->time);
         $stmt->bindParam(':status', $this->status);
         $stmt->bindParam(':date', $this->date);
         $stmt->bindParam(':mealId', $this->mealId);
-    
+        $stmt->bindParam(':TypeOfMeal', $this->TypeOfMeal);
+
+        return $stmt->execute();
+    }
+
+    public function updateStatus($preOrderDetails) {
+        $query = 'UPDATE ' . $this->table . ' SET status = :status WHERE preOrderId = :preOrderId';
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':status', $preOrderDetails['status']);
+        $stmt->bindParam(':preOrderId', $preOrderDetails['preOrderId']);
+
         if ($stmt->execute()) {
             return true;
-        }
-        printf('Error: %s.\n', $stmt->error);
-        return false;
-    }
-
-    public function read() {
-        $query = 'SELECT * FROM ' . $this->table;
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
-    }
-
-    public function read_single() {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE preOrderId = ? LIMIT 1';
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->preOrderId);
-        $stmt->execute();
-
-        if ($stmt->rowCount() > 0) {
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $this->customerId = $row['CustomerId'];
-            $this->time = $row['time'];
-            $this->status = $row['status'];
-            $this->date = $row['date'];
-            $this->mealId = $row['mealId'];
-            return true;
         } else {
+            printf('Error: %s.\n', $stmt->error);
             return false;
         }
     }
 
-    public function update() {
-        $query = 'UPDATE ' . $this->table . ' SET CustomerId = :customerId, time = :time, status = :status, date = :date, mealId = :mealId WHERE preOrderId = :preOrderId';
+    public function getPreOrderDetails() {
+        $query = 'SELECT * FROM ' . $this->table;
         $stmt = $this->conn->prepare($query);
-
-        $this->customerId = htmlspecialchars(strip_tags($this->customerId));
-        $this->time = htmlspecialchars(strip_tags($this->time));
-        $this->status = htmlspecialchars(strip_tags($this->status));
-        $this->date = htmlspecialchars(strip_tags($this->date));
-        $this->mealId = htmlspecialchars(strip_tags($this->mealId));
-        $this->preOrderId = htmlspecialchars(strip_tags($this->preOrderId));
-
-        $stmt->bindParam(':customerId', $this->customerId);
-        $stmt->bindParam(':time', $this->time);
-        $stmt->bindParam(':status', $this->status);
-        $stmt->bindParam(':date', $this->date);
-        $stmt->bindParam(':mealId', $this->mealId);
-        $stmt->bindParam(':preOrderId', $this->preOrderId);
-
-        if ($stmt->execute()) {
-            return true;
-        }
-        printf('Error: %s.\n', $stmt->error);
-        return false;
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function delete() {
-        $query = 'DELETE FROM ' . $this->table . ' WHERE preOrderId = :preOrderId';
+    public function getPreOrderDetail($preOrderId) {
+        $query = 'SELECT * FROM `' . $this->table . '` WHERE preOrderId = :preOrderId';
         $stmt = $this->conn->prepare($query);
 
-        $this->preOrderId = htmlspecialchars(strip_tags($this->preOrderId));
-        $stmt->bindParam(':preOrderId', $this->preOrderId);
+        $stmt->bindParam(':preOrderId', $preOrderId);
 
-        if ($stmt->execute()) {
-            return true;
+        $stmt->execute();
+
+        $preOrderDetail = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$preOrderDetail) {
+            return null;
         }
-        printf('Error: %s.\n', $stmt->error);
-        return false;
+
+        return $preOrderDetail;
+    }
+
+    public function customerExists($customerId) {
+        $query = 'SELECT COUNT(*) as count FROM `customer` WHERE customerId = ?';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $customerId);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['count'] > 0;
+    }
+
+    // Check if meal exists
+    public function mealExists($mealId) {
+        $query = 'SELECT COUNT(*) as count FROM `meal` WHERE mealId = ?';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $mealId);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['count'] > 0;
     }
 }
 ?>

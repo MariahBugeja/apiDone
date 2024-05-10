@@ -52,7 +52,6 @@ class Recipe {
         $query = 'INSERT INTO ' . $this->table . ' (RecipeName, prepInstructions, StaffId, timePreparation, timeCooking, mealId) VALUES(:RecipeName, :prepInstructions, :StaffId, :timePreparation, :timeCooking, :mealId)';
         $stmt = $this->conn->prepare($query);
         
-        // Clean and bind parameters
         $this->RecipeName = htmlspecialchars(strip_tags($this->RecipeName)); 
         $this->prepInstructions = htmlspecialchars(strip_tags($this->prepInstructions));
         $this->StaffId = htmlspecialchars(strip_tags($this->StaffId)); 
@@ -60,7 +59,6 @@ class Recipe {
         $this->timeCooking = htmlspecialchars(strip_tags($this->timeCooking));
         $this->mealId = htmlspecialchars(strip_tags($this->mealId)); 
         
-        // Bind parameters
         $stmt->bindParam(':RecipeName', $this->RecipeName); 
         $stmt->bindParam(':prepInstructions', $this->prepInstructions);
         $stmt->bindParam(':StaffId', $this->StaffId); 
@@ -68,7 +66,6 @@ class Recipe {
         $stmt->bindParam(':timeCooking', $this->timeCooking);
         $stmt->bindParam(':mealId', $this->mealId); 
 
-        // Execute query
         if ($stmt->execute()) {
             return true;
         }
@@ -80,7 +77,6 @@ class Recipe {
         $query = 'UPDATE ' . $this->table . ' SET RecipeName = :RecipeName, prepInstructions = :prepInstructions, StaffId = :StaffId, timePreparation = :timePreparation, timeCooking = :timeCooking, mealId = :mealId WHERE recipeId = :recipeId';
         $stmt = $this->conn->prepare($query);
     
-        // Clean and bind parameters
         $this->recipeId = htmlspecialchars(strip_tags($this->recipeId));
         $this->RecipeName = htmlspecialchars(strip_tags($this->RecipeName)); 
         $this->prepInstructions = htmlspecialchars(strip_tags($this->prepInstructions));
@@ -89,10 +85,8 @@ class Recipe {
         $this->timeCooking = htmlspecialchars(strip_tags($this->timeCooking));
         $this->mealId = htmlspecialchars(strip_tags($this->mealId)); 
     
-        // Convert empty string to null for StaffId
         $this->StaffId = !empty($this->StaffId) ? $this->StaffId : null;
     
-        // Bind parameters
         $stmt->bindParam(':recipeId', $this->recipeId);
         $stmt->bindParam(':RecipeName', $this->RecipeName); 
         $stmt->bindParam(':prepInstructions', $this->prepInstructions);
@@ -111,7 +105,7 @@ class Recipe {
     public function delete() {
         // First, check if the recipe exists
         if (!$this->read_single()) {
-            return false; // Recipe doesn't exist
+            return false; 
         }
     
         // Delete the recipe

@@ -38,7 +38,7 @@ class Staff {
 
             return true;
         } else {
-            return false; // No rows found
+            return false; 
         }
     }
 

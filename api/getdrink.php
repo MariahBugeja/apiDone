@@ -18,7 +18,6 @@ if ($drink->read_single()) {
         'Price' => $drink->Price
     );
 
-    // Output the drink data in JSON format
     echo json_encode($drink_arr);
 } else {
     // If drink with the provided ID doesn't exist, return an error message

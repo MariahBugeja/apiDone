@@ -1,22 +1,46 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
+
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
+
 include_once('../core/initialize.php');
 
-$preOrderItem = new PreOrderItem($db);
+$data = json_decode(file_get_contents('php://input'));
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents("php://input"));
-
-    $preOrderItem->preOrderId = $data->preOrderId;
-    $preOrderItem->customerId = $data->customerId;
-    $preOrderItem->mealId = $data->mealId;
-    $preOrderItem->quantity = $data->quantity;
-    $preOrderItem->specialRequest = $data->specialRequest;
-
-    // Create preorder item
-    if ($preOrderItem->create()) {
-        echo json_encode(array('message' => 'Preorder item created'));
-    } else {
-        echo json_encode(array('message' => 'Failed to create preorder item'));
+try {
+    if (!isset($data->customerId) || !isset($data->time) || !isset($data->status) || !isset($data->date) || !isset($data->mealId) || !isset($data->TypeOfMeal) ||
+        empty($data->customerId) || empty($data->time) || empty($data->status) || empty($data->date) || empty($data->mealId) || empty($data->TypeOfMeal)) {
+        throw new Exception('Failed to create pre-order. Required fields are missing or invalid.');
     }
+
+    $preOrder = new PreOrder($db);
+
+    $preOrder->customerId = $data->customerId;
+    $preOrder->time = $data->time;
+    $preOrder->status = $data->status;
+    $preOrder->date = $data->date;
+    $preOrder->mealId = $data->mealId;
+    $preOrder->TypeOfMeal = $data->TypeOfMeal;
+
+    // Check if the meal exists
+    if (!$preOrder->mealExists($preOrder->mealId)) {
+        throw new Exception('Failed to create pre-order. Meal may not exist.');
+    }
+
+    // Check if the customer exists
+    if (!$preOrder->customerExists($preOrder->customerId)) {
+        throw new Exception('Failed to create pre-order. Customer may not exist.');
+    }
+
+    // Check if the pre-order was created successfully
+    if ($preOrder->create()) {
+        echo json_encode(array('message' => 'Pre-order created successfully.'));
+    } else {
+        throw new Exception('Failed to create pre-order.');
+    }
+} catch (Exception $e) {
+    echo json_encode(array('message' => $e->getMessage()));
 }
 ?>

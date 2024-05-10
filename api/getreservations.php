@@ -1,27 +1,33 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
+
 include_once('../core/initialize.php');
 
 $reservation = new Reservation($db);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['reservationId'])) {
-        $reservation->reservationId = $_GET['reservationId'];
+    $reservationDetails = $reservation->read();
 
-        if ($reservation->read_single()) {
-            echo json_encode(array(
-                'reservationId' => $reservation->reservationId,
-                'customerId' => $reservation->customerId,
-                'date' => $reservation->date,
-                'time' => $reservation->time,
-                'numberOfGuests' => $reservation->numberOfGuests,
-                'status' => $reservation->status,
-                'mealId' => $reservation->mealId
-            ));
-        } else {
-            echo json_encode(array('message' => 'Reservation not found'));
+    if ($reservationDetails) {
+        $formattedReservations = array();
+        while ($row = $reservationDetails->fetch(PDO::FETCH_ASSOC)) {
+            $customerId = isset($row['customerId']) ? $row['customerId'] : "Customer ID not available";
+
+            $formattedReservations[$row['reservationId']] = array(
+                "reservationId" => $row['reservationId'],
+                "customerId" => $customerId,
+                "date" => $row['date'],
+                "time" => $row['time'],
+                "numberOfGuests" => $row['numberOfGuests'],
+                "tableId" => $row['tableId'],
+                "status" => $row['status']
+            );
         }
+
+        echo json_encode($formattedReservations);
     } else {
-        echo json_encode(array('message' => 'Reservation ID not provided'));
+        echo json_encode(array('message' => 'No reservations found.'));
     }
 }
 ?>

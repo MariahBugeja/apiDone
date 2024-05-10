@@ -9,7 +9,6 @@ $meal = new Meal($db);
 // Check if mealId is provided
 $meal->mealId = isset($_GET['id']) ? $_GET['id'] : die(json_encode(array('message' => 'Meal ID not provided.')));
 
-// Read single meal
 if ($meal->read_single()) {
     // Meal information
     $meal_info = array(

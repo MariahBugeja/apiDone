@@ -11,7 +11,6 @@ include_once('../core/staffshift.php');
 
 $staffShift = new StaffShift($db);
 
-// Get data from request body
 $data = json_decode(file_get_contents('php://input'));
 
 // Assign data to staff shift properties

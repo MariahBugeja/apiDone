@@ -8,13 +8,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 
 include_once('../core/initialize.php');
 
-// create instance of Customer
 $customer = new Customer($db);
 
-// get data from request body
 $data = json_decode(file_get_contents('php://input'));
 
-// Output received data for inspection
 echo json_encode($data);
 exit;
 

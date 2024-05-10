@@ -1,26 +1,23 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
+
 include_once('../core/initialize.php');
 
 $preOrder = new PreOrder($db);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if(isset($_GET['preOrderId'])) {
-        $preOrder->preOrderId = $_GET['preOrderId'];
+        $preOrderDetail = $preOrder->getPreOrderDetail($_GET['preOrderId']);
 
-        if ($preOrder->read_single()) {
-            echo json_encode(array(
-                'preOrderId' => $preOrder->preOrderId,
-                'CustomerId' => $preOrder->CustomerId,
-                'time' => $preOrder->time,
-                'status' => $preOrder->status,
-                'date' => $preOrder->date,
-                'mealId' => $preOrder->mealId
-            ));
+        if ($preOrderDetail) {
+            echo json_encode($preOrderDetail);
         } else {
-            echo json_encode(array('message' => 'PreOrder not found.'));
+            echo json_encode(array('message' => 'Pre-order not found.'));
         }
     } else {
-        echo json_encode(array('message' => 'PreOrder ID not provided.'));
+        // Pre-order ID not provided, return message
+        echo json_encode(array('message' => 'Pre-order ID not provided.'));
     }
 }
 ?>

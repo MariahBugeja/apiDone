@@ -9,7 +9,6 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 
 include_once('../core/initialize.php');
 include_once('../core/Staff.php'); 
-// Create instance of staff
 $staff = new Staff($db);
 
 $data = json_decode(file_get_contents('php://input'));

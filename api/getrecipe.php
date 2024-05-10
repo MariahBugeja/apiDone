@@ -9,7 +9,6 @@ $recipe = new Recipe($db);
 // Check if recipeId is provided
 $recipe->recipeId = isset($_GET['recipeId']) ? $_GET['recipeId'] : die(json_encode(array('message' => 'Recipe ID not provided.')));
 
-// Read single recipe
 if ($recipe->read_single()) {
     // Recipe information
     $recipe_info = array(

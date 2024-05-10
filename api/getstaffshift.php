@@ -10,7 +10,6 @@ include_once('../core/staffshift.php');
 
 $staffShift = new StaffShift($db);
 
-// Read staff shifts from the database
 $result = $staffShift->read();
 
 // Check if any staff shifts were found
