@@ -1,6 +1,4 @@
-Sure! Here's the GitHub README file template based on the provided API documentation for your Bistro project:
 
----
 
 # Bistro API Documentation
 
