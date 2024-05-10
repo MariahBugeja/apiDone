@@ -2,9 +2,35 @@ site_name: Bistro API Documentation
 nav:
   - Home: index.md
   - Overview: api_overview.md
+  - Dependencies: Dependencie.md
+
+
   - Endpoints:
-    - GET /endpoint1: endpoint1.md
-    - POST /endpoint2: endpoint2.md
-    - DELETE /endpoint3: endpoint3.md
+    - reservation /endpoint1: endpoint1.md
+    - allergies /endpoint2: endpoint2.md
+    - customer /endpoint3: endpoint3.md
+    - drink /endpoint4: endpoint4.md
+    - invoice /endpoint5: endpoint5.md
+    - meal /endpoint6: endpoint6.md
+    - order /endpoint7: endpoint7.md
+    - orderitem /endpoint8: endpoint8.md
+    - preorder /endpoint9: endpoint9.md
+    - preorderite  /endpoint10: endpoint10.md
+    - recipes /endpoint11: endpoin11.md
+    - resturanttable /endpoint12: endpoint12.md
+    - staff /endpoint13: endpoint13.md
+    - staffshift /endpoint14: endpoint14.md
+    - staffaccount /endpoint15: endpoint15.md
+
+
+
+
+
+
+
+
+
+
+
 theme: readthedocs
 repo_url: "https://github.com/MariahBugeja/apiDone.git"

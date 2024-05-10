@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "f689e721-9163-4ede-b4e1-e79a4dd497e9",
+		"name": "meal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32851633",
+		"_collection_link": "https://lunar-crater-350255.postman.co/workspace/bistro1~125b2642-2fc2-4203-b416-44d3208cde7f/collection/32851633-f689e721-9163-4ede-b4e1-e79a4dd497e9?action=share&source=collection_link&creator=32851633"
+	},
+	"item": [
+		{
+			"name": "createfood",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"MealName\" : \"chicken\",\n    \"description\" : \"A delicious and healthy chicken\",\n    \"Price\" : 20.99 \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/createmeal.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"createmeal.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getmeal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/getmeal.php?id=1\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"getmeal.php"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatefood",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mealId\": 1,\n    \"MealName\": \"Spaghett\",\n    \"description\": \"FTender, flavorful, juicy, and cooked to perfection\",\n    \"Price\": 1.99\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/updatemeal.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"updatemeal.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletefood",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/deletemeal.php?mealid=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"deletemeal.php"
+					],
+					"query": [
+						{
+							"key": "mealid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "28f701a6-cf14-4173-be34-bb85085fcadd",
+		"name": "orderitem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32851633",
+		"_collection_link": "https://lunar-crater-350255.postman.co/workspace/bistro1~125b2642-2fc2-4203-b416-44d3208cde7f/collection/32851633-28f701a6-cf14-4173-be34-bb85085fcadd?action=share&source=collection_link&creator=32851633"
+	},
+	"item": [
+		{
+			"name": "createorderitem",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": 1,\n    \"mealId\": 1,\n    \"drinkId\": 5,\n    \"quantity\": 1,\n    \"specialRequirements\": \"No onions\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/createorderitem.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"createorderitem.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateorderitem",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderItemId\": 3,\n    \"orderId\": 133,\n    \"mealId\": 4,\n    \"drinkId\": 5,\n    \"quantity\": 1,\n    \"specialRequirements\": \"No sauce\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/updateorderitem.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"updateorderitem.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getorderitem",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/getorderitem.php?orderItemId=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"getorderitem.php"
+					],
+					"query": [
+						{
+							"key": "orderItemId",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getorderitems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/getorderitems.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"getorderitems.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

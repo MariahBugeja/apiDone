@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "c839c33f-d8ff-4855-b941-d9932b00f739",
+		"name": "staffshift",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32851633",
+		"_collection_link": "https://lunar-crater-350255.postman.co/workspace/bistro1~125b2642-2fc2-4203-b416-44d3208cde7f/collection/32851633-c839c33f-d8ff-4855-b941-d9932b00f739?action=share&source=collection_link&creator=32851633"
+	},
+	"item": [
+		{
+			"name": "createstuffshift",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"staffId\": \"1\",\n    \"start\": \"2024-04-4 18:00:00\",\n    \"finish\": \"2024-04-5 1:00:00\",\n    \"shiftType\": \"night\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/createstaffshift.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"createstaffshift.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatestaffshift",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"staffShiftId\": \"1\",\n    \"staffId\": \"1\",\n    \"start\": \"2024-04-25 09:00:00\",\n    \"finish\": \"2024-04-25 17:00:00\",\n    \"shiftType\": \"Morning\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/updatestaffshift.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"updatestaffshift.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/deletestaffshift.php?staffShiftId=5\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"deletestaffshift.php"
+					],
+					"query": [
+						{
+							"key": "staffShiftId",
+							"value": "5\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/getstaffshift.php?staffshiftId=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"getstaffshift.php"
+					],
+					"query": [
+						{
+							"key": "staffshiftId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

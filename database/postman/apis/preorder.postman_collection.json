@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "becd3687-209f-4648-b782-f9fc3339682f",
+		"name": "preorder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32851633",
+		"_collection_link": "https://lunar-crater-350255.postman.co/workspace/bistro1~125b2642-2fc2-4203-b416-44d3208cde7f/collection/32851633-becd3687-209f-4648-b782-f9fc3339682f?action=share&source=collection_link&creator=32851633"
+	},
+	"item": [
+		{
+			"name": "createpreorder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\":5,\n    \"time\":\"12:00:00\",\n    \"status\":\"Pending\",\n    \"date\":\"2024-05-10\",\n    \"mealId\":2,\n    \"TypeOfMeal\":\"frozen\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/createpreOrder.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"createpreOrder.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateorderstatus",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"cancelled\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/updatepreorder.php?preOrderId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"updatepreorder.php"
+					],
+					"query": [
+						{
+							"key": "preOrderId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getorderdeatil",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/getpreorder.php?preOrderId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"getpreorder.php"
+					],
+					"query": [
+						{
+							"key": "preOrderId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getorderdetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/getpreorderdetails.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"getpreorderdetails.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "fb88c2da-3e25-4d11-baae-4d681effa293",
+		"name": "preorderdetail",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32851633",
+		"_collection_link": "https://lunar-crater-350255.postman.co/workspace/bistro1~125b2642-2fc2-4203-b416-44d3208cde7f/collection/32851633-fb88c2da-3e25-4d11-baae-4d681effa293?action=share&source=collection_link&creator=32851633"
+	},
+	"item": [
+		{
+			"name": "createorderdetail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"preOrderId\": 2,\n    \"mealId\": 433,\n    \"quantity\": 1,\n    \"specialRequest\": \"No onions\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/createpreorderitem.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"createpreorderitem.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getpreorderdetail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/api/api/getpreorderitemdetail.php?preOrderItemId=13333\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"api",
+						"api",
+						"getpreorderitemdetail.php"
+					],
+					"query": [
+						{
+							"key": "preOrderItemId",
+							"value": "13333\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getpreoderdetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/api/api/getpreoderitemdetails.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"api",
+						"api",
+						"getpreoderitemdetails.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

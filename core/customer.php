@@ -15,11 +15,12 @@ class Customer {
     }
 
     public function read() {
-        $query = 'SELECT * FROM ' . $this->table . ' ORDER BY Customer ASC';
+        $query = 'SELECT * FROM ' . $this->table . ' ORDER BY customerId ASC';
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
+    
 
     public function read_single() {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE customerId = ? LIMIT 1';
@@ -27,7 +28,6 @@ class Customer {
         $stmt->bindParam(1, $this->customerId);
         $stmt->execute();
 
-        // Check if any rows were returned
         if ($stmt->rowCount() > 0) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -39,7 +39,7 @@ class Customer {
 
             return true;
         } else {
-            return false; // No rows found
+            return false;
         }
     }
 

@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "5a5040a6-4558-48ed-a154-137df962cb41",
+		"name": "staff",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32851633",
+		"_collection_link": "https://lunar-crater-350255.postman.co/workspace/bistro1~125b2642-2fc2-4203-b416-44d3208cde7f/collection/32851633-5a5040a6-4558-48ed-a154-137df962cb41?action=share&source=collection_link&creator=32851633"
+	},
+	"item": [
+		{
+			"name": "createstuff",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"FirstName\":\"anth\",\n    \"LastName\":\"Sorrengial\",\n    \"role\":\"waiter\",\n    \"phone\" :\"7790887\",\n    \"address\":\"Block f Flat 6 Triq Patri Mosta\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/createstaff.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"createstaff.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatestuff",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"staffId\": \"3\",\n    \"FirstName\":\"anth\",\n    \"LastName\":\"Sorrengial\",\n    \"role\":\"Manager\",\n    \"phone\" :\"7790887\",\n    \"address\":\"Block f Flat 6 Triq Patri Mosta\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/updatestuff.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"updatestuff.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletestuff",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/deletestuff.php?staffId=2\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"deletestuff.php"
+					],
+					"query": [
+						{
+							"key": "staffId",
+							"value": "2\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getreservations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/api/api/getreservations.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"api",
+						"api",
+						"getreservations.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -17,24 +17,24 @@ class Drink {
         $stmt->execute();
         return $stmt;
     }
-
     public function read_single() {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE drinkId = ? LIMIT 1';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->drinkId);
         $stmt->execute();
-
+    
         if ($stmt->rowCount() > 0) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    
             $this->Name = $row['Name'];
             $this->Price = $row['Price'];
-
-            return true;
+    
+            return $this;
         } else {
-            return false;
+            return null; 
         }
     }
+    
 
     public function create() {
         $query = 'INSERT INTO ' . $this->table . ' (Name, Price) VALUES(:Name, :Price)';
@@ -54,9 +54,13 @@ class Drink {
     }
 
     public function update() {
-        // Check if the drink ID exists before updating
-        if (!$this->read_single()) {
+        $existingDrink = $this->read_single();
+        if (!$existingDrink) {
             return json_encode(array('message' => 'No drink with the provided ID exists.'));
+        }
+    
+        if ($this->Name === $existingDrink->Name && $this->Price === $existingDrink->Price) {
+            return json_encode(array('message' => 'No changes made to the drink.'));
         }
     
         $query = 'UPDATE ' . $this->table . ' SET Name = :Name, Price = :Price WHERE drinkId = :drinkId';
@@ -70,9 +74,7 @@ class Drink {
         $stmt->bindParam(':Name', $this->Name);
         $stmt->bindParam(':Price', $this->Price);
     
-        // Execute the update query
         if ($stmt->execute()) {
-            // Check if any rows were affected
             if ($stmt->rowCount() > 0) {
                 return json_encode(array('message' => 'Drink updated.'));
             } else {
@@ -83,6 +85,7 @@ class Drink {
             return json_encode(array('message' => 'Failed to update drink.'));
         }
     }
+    
     
     
     public function delete() {

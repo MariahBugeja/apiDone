@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "784db92d-ccaf-46d7-9be6-a9d8ec1690be",
+		"name": "invoice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32851633",
+		"_collection_link": "https://lunar-crater-350255.postman.co/workspace/bistro1~125b2642-2fc2-4203-b416-44d3208cde7f/collection/32851633-784db92d-ccaf-46d7-9be6-a9d8ec1690be?action=share&source=collection_link&creator=32851633"
+	},
+	"item": [
+		{
+			"name": "createinvoice",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": \"155555\",\n    \"Totalammount\": 100.50,\n    \"PaymentStatus\": \"Cash\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/createinvoice.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"createinvoice.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateinvoice",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"invoiceId\": \"3\",\n    \"Totalammount\": 100,\n    \"PaymentStatus\": \"Cash\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/updateinvoice.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"updateinvoice.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteinvoice",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/deleteinvoice.php?invoiceId=8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"deleteinvoice.php"
+					],
+					"query": [
+						{
+							"key": "invoiceId",
+							"value": "8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getinvoice",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/getinvoice.php?invoiceId=7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"getinvoice.php"
+					],
+					"query": [
+						{
+							"key": "invoiceId",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getinvoices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api1/API/api/getinvoices.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api1",
+						"API",
+						"api",
+						"getinvoices.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

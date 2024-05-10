@@ -85,6 +85,11 @@ class StaffShift {
     }
 
     public function delete() {
+        // Check if staffShiftId is provided
+        if (!isset($this->staffShiftId)) {
+            return json_encode(array('message' => 'Staff Shift ID not provided.'));
+        }
+
         $query = 'DELETE FROM ' . $this->table . ' WHERE staffShiftId = :staffShiftId';
         $stmt = $this->conn->prepare($query);
 
@@ -98,5 +103,7 @@ class StaffShift {
         return false;
     }
 }
+
+
 
 ?>

@@ -11,25 +11,25 @@ $result = $customer->read();
 
 $num = $result->rowCount();
 
-if($num > 0){
+if ($num > 0) {
     $customer_list = array();
     $customer_list['data'] = array();
 
-while($row = $result->fetch(PDO::FETCH_ASSOC)){
-    extract($row);
-    $user_item = array(
-        'customerId'  =>$Customer->id,
-        'FirstName'  => $Customer->FirstName,
-        'LastName'  => $Customer->LastName,
-        'Email'     => $Customer->Email,
-        'phone'     => $Customer->phone,
-        'password'  => $Customer->password
-    );
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        extract($row);
+        $user_item = array(
+            'customerId' => $customerId,
+            'FirstName' => $FirstName,
+            'LastName' => $LastName,
+            'Email' => $Email,
+            'phone' => $phone,
+            'password' => $password
+        );
 
-    array_push($user_list['data'], $user_item);
+        array_push($customer_list['data'], $user_item);
     }
-    echo json_encode($user_list);
+    echo json_encode($customer_list);
+} else {
+    echo json_encode(array('message' => 'No Users found.'));
 }
-else{
-  echo json_encode(array('message'=>'No Users found.'));
-}
+?>
