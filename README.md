@@ -10,22 +10,31 @@ The Bistro API allows developers to seamlessly integrate with our platform, prov
 
 ## Endpoints
 
-### Customers
 
-- **Create**: Create new customer records.
-- **Update**: Update existing customer details.
-- **Delete**: Delete customer records.
-- **Update Password**: Allow customers to update their passwords.
-- **Get Customers**: Retrieve information about customers.
+- **Customers**: Manage customer information, including creating, updating, deleting, and retrieving customer details.
+- **Drinks**: Handle drink menu items, allowing for creation, updating, deletion, and retrieval of drink information.
+- **Invoices**: Manage invoices generated for orders, including creation, updating, deletion, and retrieval of invoice details.
+- **Meals**: Handle meal menu items, allowing for creation, updating, deletion, and retrieval of meal information.
+- **Orders**: Manage customer orders, including creating new orders, updating order details, and retrieving order information.
+- **Preorders**: Handle customer preorders, allowing for creation, updating, and retrieval of preorder information.
+- **Preorder Items**: Manage items within preorders, enabling staff to add items and retrieve preorder details.
+- **Recipes**: Handle recipes for meals, including creation, updating, deletion, and retrieval of recipe details.
+- **Reservations**: Manage restaurant reservations, including creating, updating reservation status, and retrieving reservation details.
+- **Restaurant Tables**: Manage restaurant table information, including adding, updating, deleting, and retrieving table details.
+- **Staff**: Manage staff members, including adding, updating, deleting, and retrieving staff information.
+- **Staff Accounts**: Manage staff accounts, including creating and deleting accounts and retrieving account details.
+- **Staff Shifts**: Manage staff shift schedules, including creating, updating, deleting, and retrieving shift details.
 
-### Drinks
+## Structure
 
-- **Create**: Add new drink items to the menu.
-- **Update**: Update drink details.
-- **Delete**: Remove drinks from the menu.
-- **Get Drinks**: Retrieve information about available drinks.
+- **api/**: This folder contains scripts for managing different requests like creating bookings, handling orders, and managing stuff  within the API.
+- **core/**: Here, you'll find important parts like setting up the database and other key configurations needed for the main functions of the application.
+- **database/**: Inside this folder are scripts for managing the MySQL database, like creating its structure and adding sample data.
+- **documentation/**: This folder is for creating detailed project documentation using MkDocs, which explains the API endpoints and how to use them.
+- **includes/**: Here, you'll find shared code and useful functions that are used in many parts of the project to keep things organized and easier to manage.
+- **postman/**: In this folder, you'll find collections and setups for Postman, a tool used for testing and developing the API.
 
-
+  
 ## Usage
 
 
