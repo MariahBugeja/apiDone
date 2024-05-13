@@ -25,7 +25,6 @@ The Bistro API allows developers to seamlessly integrate with our platform, prov
 - **Delete**: Remove drinks from the menu.
 - **Get Drinks**: Retrieve information about available drinks.
 
-_(Include similar sections for other endpoint categories)_
 
 ## Usage
 
